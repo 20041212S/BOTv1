@@ -1,9 +1,46 @@
 import 'dotenv/config';
+<<<<<<< HEAD
 import { prisma } from '../lib/prisma';
 import bcrypt from 'bcryptjs';
 
 const databaseUrl = process.env.DATABASE_URL || '';
 console.log('Database URL:', databaseUrl ? databaseUrl.substring(0, 50) + '...' : 'Not set');
+=======
+import { PrismaClient } from '../app/generated/prisma/client';
+import bcrypt from 'bcryptjs';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
+
+// Use the same config as lib/prisma.ts
+const getPrismaConfig = () => {
+  const databaseUrl = process.env.DATABASE_URL || '';
+  console.log('Database URL:', databaseUrl.substring(0, 50) + '...');
+  
+  if (databaseUrl.startsWith('prisma+')) {
+    return { accelerateUrl: databaseUrl };
+  }
+  
+  // For direct PostgreSQL connections, use @prisma/adapter-pg
+  if (databaseUrl.startsWith('postgresql://') || databaseUrl.startsWith('postgres://')) {
+    try {
+      const pool = new Pool({ connectionString: databaseUrl });
+      const adapter = new PrismaPg(pool);
+      console.log('Adapter created successfully');
+      return { adapter };
+    } catch (error) {
+      console.error('Failed to create postgres adapter:', error);
+      return {};
+    }
+  }
+  
+  console.error('No valid database URL found');
+  return {};
+};
+
+const config = getPrismaConfig();
+console.log('Prisma config:', Object.keys(config));
+const prisma = new PrismaClient(config as any);
+>>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 
 async function main() {
   console.log('Seeding database...');
@@ -50,6 +87,10 @@ async function main() {
         status: 'ACTIVE',
       },
     ],
+<<<<<<< HEAD
+=======
+    skipDuplicates: true,
+>>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   });
 
   console.log('Created staff members:', staff.count);
@@ -90,6 +131,10 @@ async function main() {
         currency: 'INR',
       },
     ],
+<<<<<<< HEAD
+=======
+    skipDuplicates: true,
+>>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   });
 
   console.log('Created fee entries:', fees.count);
@@ -130,6 +175,10 @@ async function main() {
         longitude: 77.5940,
       },
     ],
+<<<<<<< HEAD
+=======
+    skipDuplicates: true,
+>>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   });
 
   console.log('Created rooms:', rooms.count);

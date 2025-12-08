@@ -162,6 +162,7 @@ body::before {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+<<<<<<< HEAD
 /* Improved text readability for chat messages */
 .chat-bubble-assistant p,
 .chat-bubble-user p {
@@ -182,6 +183,8 @@ body::before {
   line-height: 1.6;
 }
 
+=======
+>>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 /* Input Styles */
 .modern-input {
   background: rgba(255, 255, 255, 0.7);
