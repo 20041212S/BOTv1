@@ -39,7 +39,13 @@ export default function ChatPage() {
   useEffect(() => {
     // Check if user has registered before allowing access to chat
     const isLoggedIn = localStorage.getItem('clientUserLoggedIn');
-    if (isLoggedIn !== 'true') {
+    const clientUserId = localStorage.getItem('clientUserId');
+    
+    // Redirect to login if not logged in or missing required data
+    if (isLoggedIn !== 'true' || !clientUserId) {
+      localStorage.removeItem('clientUserLoggedIn');
+      localStorage.removeItem('clientUserId');
+      localStorage.removeItem('clientUserType');
       router.push('/');
       return;
     }

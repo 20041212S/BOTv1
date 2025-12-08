@@ -15,7 +15,10 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('clientUserLoggedIn');
-    if (isLoggedIn === 'true') {
+    const clientUserId = localStorage.getItem('clientUserId');
+    
+    // Only redirect to chat if BOTH conditions are met
+    if (isLoggedIn === 'true' && clientUserId) {
       router.push('/chat');
     }
   }, [router]);
