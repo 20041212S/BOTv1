@@ -36,7 +36,7 @@
    ```
 
 5. **Access the Application**
-   - Student App: http://localhost:3000
+   - Client Login: http://localhost:3000 (enter mobile, email, select user type: Student/Guest/Parent)
    - Admin Portal: http://localhost:3000/admin/login
    - Admin Credentials: admin@pce.edu / admin123
 
