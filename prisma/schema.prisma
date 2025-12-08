@@ -115,3 +115,13 @@ model AuditLog {
   
   @@map("audit_logs")
 }
+
+model ClientUser {
+  id        String   @id @default(cuid())
+  mobile    String
+  email     String
+  userType  String   // "student" | "guest" | "parent"
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  @@map("client_users")
+}
