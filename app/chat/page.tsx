@@ -31,13 +31,21 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [sources, setSources] = useState<Source[]>([]);
   const [showPolicyBanner, setShowPolicyBanner] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
+    // Check if user has registered before allowing access to chat
+    const isLoggedIn = localStorage.getItem('clientUserLoggedIn');
+    if (isLoggedIn !== 'true') {
+      router.push('/');
+      return;
+    }
+    setIsAuthorized(true);
     loadConversations();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (activeConversation) {
@@ -156,6 +164,18 @@ export default function ChatPage() {
     { icon: 'map', label: 'Campus Map' },
     { icon: 'contacts', label: 'Contacts' },
   ];
+
+  // Show loading while checking authorization
+  if (!isAuthorized) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+          <p className="text-gray-700 font-medium">Checking registration...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
