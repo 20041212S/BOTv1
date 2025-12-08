@@ -131,6 +131,18 @@ export default function AdminLayout({
             <span className="font-semibold" style={{ color: pathname === '/admin/fees' ? '#667eea' : 'inherit' }}>Fees</span>
           </Link>
           <Link
+            href="/admin/client-users"
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover-lift ${
+              pathname === '/admin/client-users'
+                ? 'neu-card-inset'
+                : 'hover:bg-white/20'
+            }`}
+            style={pathname === '/admin/client-users' ? { background: 'rgba(102, 126, 234, 0.15)', boxShadow: 'inset 4px 4px 8px rgba(163, 177, 198, 0.2), inset -4px -4px 8px rgba(255, 255, 255, 0.8)' } : {}}
+          >
+            <span className="material-symbols-outlined text-xl" style={{ color: pathname === '/admin/client-users' ? '#667eea' : 'inherit' }}>person_add</span>
+            <span className="font-semibold" style={{ color: pathname === '/admin/client-users' ? '#667eea' : 'inherit' }}>Registered Clients</span>
+          </Link>
+          <Link
             href="/admin/rooms"
             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover-lift ${
               pathname === '/admin/rooms'
