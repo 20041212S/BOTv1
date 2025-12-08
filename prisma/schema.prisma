@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         String    @default("admin") // admin, editor, etc.
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  
+  auditLogs    AuditLog[]
+  
+  @@map("users")
+}
+
+model Staff {
+  id          String   @id @default(cuid())
+  name        String
+  department  String
+  designation String
+  email       String?
+  phone       String?
+  status      String   @default("ACTIVE") // ACTIVE, INACTIVE
+  avatarUrl   String?  @map("avatar_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("staff")
+}
+
+model Fee {
+  id             String   @id @default(cuid())
+  programName    String   @map("program_name")
+  academicYear   String   @map("academic_year")
+  yearOrSemester String   @map("year_or_semester") // e.g., "Year 1", "Semester 1"
+  category       String   // e.g., "Tuition", "Library", "Lab"
+  amount         Decimal  @db.Decimal(10, 2)
+  currency       String   @default("INR")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  
+  @@map("fees")
+}
+
+model Room {
+  id            String   @id @default(cuid())
+  roomCode      String   @unique @map("room_code")
+  buildingName  String   @map("building_name")
+  floor         String
+  textDirections String? @map("text_directions")
+  latitude      Float?
+  longitude     Float?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  
+  @@map("rooms")
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  title     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  
+  messages  Message[]
+  
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String       @map("conversation_id")
+  sender         String       // "user" or "assistant"
+  content        String
+  createdAt      DateTime     @default(now()) @map("created_at")
+  
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  @@map("messages")
+}
+
+model Knowledge {
+  id        String   @id @default(cuid())
+  source    String
+  type      String
+  name      String
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("knowledge")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String   @map("actor_id")
+  action     String   // e.g., "LOGIN", "STAFF_UPDATE", "FEE_CHANGE"
+  entityType String?  @map("entity_type") // e.g., "Staff", "Fee", "Room"
+  entityId   String?  @map("entity_id")
+  severity   String   @default("INFO") // INFO, WARNING, ERROR, IMPORTANT, HIGH_PRIORITY
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  actor      User     @relation(fields: [actorId], references: [id])
+  
+  @@map("audit_logs")
+}
