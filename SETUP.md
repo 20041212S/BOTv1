@@ -36,7 +36,7 @@
    ```
 
 5. **Access the Application**
-   - Client Login: http://localhost:3000 (enter mobile, email, select user type: Student/Guest/Parent)
+   - Student App: http://localhost:3000
    - Admin Portal: http://localhost:3000/admin/login
    - Admin Credentials: admin@pce.edu / admin123
 
@@ -76,6 +76,9 @@ DATABASE_URL="postgresql://postgres:yourpassword@localhost:5432/campus_assistant
 
 ## Key Features Implemented
 
+✅ Client login page (mobile, email, user type: student/guest/parent)
+✅ Client registration & database persistence
+✅ Admin client-users portal (view, filter, download CSV)
 ✅ Student onboarding screen
 ✅ Chat interface with conversations sidebar
 ✅ RAG sources display

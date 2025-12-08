@@ -5,7 +5,6 @@ A production-ready full-stack web application consisting of a Student Client App
 ## Features
 
 ### Student Client App
-- **Client Login Page**: Entry point with mobile number and email fields, selectable user type (Student, Guest, Parent)
 - **Onboarding Screen**: Welcome experience with feature highlights
 - **Chat Interface**: Three-column layout with conversations sidebar, chat area, and sources view
 - **RAG Sources Display**: Shows document sources for chatbot answers
@@ -21,33 +20,6 @@ A production-ready full-stack web application consisting of a Student Client App
 - **Audit Logs**: Track all admin actions with filtering
 - **Role Management**: Manage user roles and permissions (stub)
 - **Settings**: Security settings including 2FA configuration
-
-## Client Login Requirements
-
-The client server includes a comprehensive login page with the following requirements:
-
-### Login Page Features
-- **Mobile Number Field**: Required input field for user's mobile number
-- **Email ID Field**: Required input field for user's email address
-- **User Type Selection**: Dropdown/select menu with three options:
-  - **Student**: For enrolled students
-  - **Guest**: For guest users or visitors
-  - **Parent**: For parent/guardian access
-- **Submit Button**: "Continue" button to proceed with registration
-- **Beautiful UI**: Glassmorphic design matching the modern aesthetic
-- **Validation**: Client-side and server-side validation for all fields
-
-### Backend Integration
-- **Endpoint**: `POST /api/client/register`
-- **Database**: ClientUser model stores mobile, email, and userType
-- **Session Management**: LocalStorage manages user session after login
-- **Data Persistence**: All registrations stored in PostgreSQL database
-
-### Admin Management
-- **Admin API**: `GET /api/admin/client-users` - view all registered clients
-- **Filtering**: Filter clients by user type (student, guest, parent)
-- **CSV Export**: `GET /api/admin/client-users/download` - download client data
-- **Admin UI**: `/admin/client-users` - full management dashboard with table, filtering, and export
 
 ## Tech Stack
 
