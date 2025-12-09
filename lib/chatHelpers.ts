@@ -1,7 +1,6 @@
 import { prisma } from './prisma';
 
 /**
-<<<<<<< HEAD
  * Check if message is a simple greeting
  */
 export function isGreeting(message: string): boolean {
@@ -17,15 +16,10 @@ export function isGreeting(message: string): boolean {
 
 /**
  * Intent detection - improved keyword-based classification
-=======
- * Intent detection - simple keyword-based classification
- * TODO: Replace with ML-based intent classification if needed
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
  */
 export function detectIntent(message: string): string {
   const lowerMessage = message.toLowerCase();
   
-<<<<<<< HEAD
   // Check for greetings first
   if (isGreeting(message)) {
     return 'GREETING';
@@ -71,34 +65,13 @@ export function detectIntent(message: string): string {
     return 'ADMISSION_INFO';
   }
   
-=======
-  if (lowerMessage.includes('fee') || lowerMessage.includes('tuition') || lowerMessage.includes('payment')) {
-    return 'FEES_INFO';
-  }
-  
-  if (lowerMessage.includes('teacher') || lowerMessage.includes('professor') || lowerMessage.includes('hod') || 
-      lowerMessage.includes('faculty') || lowerMessage.includes('staff') || lowerMessage.includes('head')) {
-    return 'STAFF_INFO';
-  }
-  
-  if (lowerMessage.includes('where') || lowerMessage.includes('location') || lowerMessage.includes('room') || 
-      lowerMessage.includes('building') || lowerMessage.includes('directions') || lowerMessage.includes('find')) {
-    return 'DIRECTIONS';
-  }
-  
-  if (lowerMessage.includes('event') || lowerMessage.includes('announcement') || lowerMessage.includes('news')) {
-    return 'EVENTS_INFO';
-  }
-  
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   return 'GENERAL_INFO';
 }
 
 /**
- * Query staff information from database
+ * Query staff information from database with in-memory filtering (SQLite friendly)
  */
 export async function getStaffInfo(query: string): Promise<any[]> {
-<<<<<<< HEAD
   const queryLower = query.toLowerCase().trim();
   
   // Department abbreviation mapping
@@ -152,32 +125,12 @@ export async function getStaffInfo(query: string): Promise<any[]> {
   }
   
   return filtered.slice(0, 10);
-=======
-  const searchTerms = query.toLowerCase().split(' ');
-  
-  const staff = await prisma.staff.findMany({
-    where: {
-      AND: searchTerms.map(term => ({
-        OR: [
-          { name: { contains: term, mode: 'insensitive' } },
-          { department: { contains: term, mode: 'insensitive' } },
-          { designation: { contains: term, mode: 'insensitive' } },
-        ],
-      })),
-      status: 'ACTIVE',
-    },
-    take: 5,
-  });
-  
-  return staff;
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 }
 
 /**
- * Query fee information from database
+ * Query fee information from database with in-memory case-insensitive filtering
  */
 export async function getFeeInfo(query: string): Promise<any[]> {
-<<<<<<< HEAD
   const queryLower = query.toLowerCase();
   
   // SQLite doesn't support case-insensitive mode, so fetch all fees
@@ -198,29 +151,12 @@ export async function getFeeInfo(query: string): Promise<any[]> {
   });
   
   return filtered.slice(0, 10);
-=======
-  const searchTerms = query.toLowerCase().split(' ');
-  
-  const fees = await prisma.fee.findMany({
-    where: {
-      OR: [
-        { programName: { contains: query, mode: 'insensitive' } },
-        { academicYear: { contains: query, mode: 'insensitive' } },
-        { category: { contains: query, mode: 'insensitive' } },
-      ],
-    },
-    take: 10,
-  });
-  
-  return fees;
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 }
 
 /**
- * Query room/location information from database
+ * Query room/location information from database with in-memory filtering
  */
 export async function getRoomDirections(query: string): Promise<any | null> {
-<<<<<<< HEAD
   const queryLower = query.toLowerCase();
   
   // SQLite doesn't support case-insensitive mode, so fetch all rooms
@@ -243,29 +179,5 @@ export async function getRoomDirections(query: string): Promise<any | null> {
   );
   
   return roomByBuilding || null;
-=======
-  const searchTerms = query.toLowerCase().split(' ');
-  
-  // Try to find by room code first
-  const roomByCode = await prisma.room.findFirst({
-    where: {
-      roomCode: { contains: query, mode: 'insensitive' },
-    },
-  });
-  
-  if (roomByCode) return roomByCode;
-  
-  // Then try building name or floor
-  const roomByBuilding = await prisma.room.findFirst({
-    where: {
-      OR: [
-        { buildingName: { contains: query, mode: 'insensitive' } },
-        { floor: { contains: query, mode: 'insensitive' } },
-      ],
-    },
-  });
-  
-  return roomByBuilding;
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 }
 

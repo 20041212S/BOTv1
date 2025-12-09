@@ -18,8 +18,7 @@ export async function POST(request: NextRequest) {
 
     // Detect intent
     const intent = detectIntent(message);
-<<<<<<< HEAD
-    const isSimpleGreeting = intent === 'GREETING';
+     const isSimpleGreeting = intent === 'GREETING';
 
     // Query database based on intent
     const data: any = {};
@@ -90,42 +89,7 @@ export async function POST(request: NextRequest) {
       intent,
       userMessage: message,
       data: enhancedData,
-=======
-
-    // Query database based on intent
-    const data: any = {};
-    
-    if (intent === 'FEES_INFO') {
-      data.fees = await getFeeInfo(message);
-    }
-    if (intent === 'STAFF_INFO') {
-      data.staff = await getStaffInfo(message);
-    }
-    if (intent === 'DIRECTIONS') {
-      data.room = await getRoomDirections(message);
-    }
-
-    // Always search knowledge base for supplemental context
-    const knowledge = await searchKnowledge(message, 5);
-    if (knowledge.length) {
-      data.knowledge = knowledge;
-    }
-
-    // Construct sources for UI (RAG-style)
-    const sources =
-      knowledge?.map((k: any) => ({
-        title: k.name,
-        source: k.source,
-        snippet: k.text?.slice(0, 160) + (k.text?.length > 160 ? '...' : ''),
-      })) || [];
-
-    // Call Groq LLM
-    const llmResponse = await callGroqLLM({
-      intent,
-      userMessage: message,
-      data: { ...data, sources },
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-    });
+     });
 
     // Get or create conversation
     let conversation;
@@ -172,8 +136,7 @@ export async function POST(request: NextRequest) {
       sources: llmResponse.sources,
       conversationId: conversation.id,
     });
-<<<<<<< HEAD
-  } catch (error: any) {
+   } catch (error: any) {
     console.error('Chat API error:', error);
     console.error('Error stack:', error?.stack);
     return NextResponse.json(
@@ -182,13 +145,7 @@ export async function POST(request: NextRequest) {
         answer: "I'm sorry, I encountered an error processing your request. Please try again or contact support if the issue persists.",
         sources: []
       },
-=======
-  } catch (error) {
-    console.error('Chat API error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-      { status: 500 }
+       { status: 500 }
     );
   }
 }

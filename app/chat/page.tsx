@@ -23,7 +23,6 @@ interface Source {
   documentId?: string;
 }
 
-<<<<<<< HEAD
 /**
  * Format message content for better readability
  */
@@ -66,9 +65,6 @@ function formatMessageContent(content: string) {
     );
   });
 }
-
-=======
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 export default function ChatPage() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
@@ -77,19 +73,12 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [sources, setSources] = useState<Source[]>([]);
   const [showPolicyBanner, setShowPolicyBanner] = useState(true);
-<<<<<<< HEAD
-=======
   const [isAuthorized, setIsAuthorized] = useState(false);
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-<<<<<<< HEAD
-    loadConversations();
-  }, []);
-=======
     // Check if user has registered before allowing access to chat
     const isLoggedIn = localStorage.getItem('clientUserLoggedIn');
     const clientUserId = localStorage.getItem('clientUserId');
@@ -105,7 +94,6 @@ export default function ChatPage() {
     setIsAuthorized(true);
     loadConversations();
   }, [router]);
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 
   useEffect(() => {
     if (activeConversation) {
@@ -114,7 +102,6 @@ export default function ChatPage() {
   }, [activeConversation]);
 
   useEffect(() => {
-<<<<<<< HEAD
     // Scroll to bottom when messages change
     const timeoutId = setTimeout(() => {
       scrollToBottom();
@@ -135,21 +122,6 @@ export default function ChatPage() {
         messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
     });
-=======
-    scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
-    const container = messagesContainerRef.current;
-    if (container) {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: 'smooth',
-      });
-    } else {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   };
 
   const loadConversations = async () => {
@@ -171,11 +143,8 @@ export default function ChatPage() {
       const data = await res.json();
       setMessages(data.messages || []);
       setSources([]);
-<<<<<<< HEAD
       // Scroll to bottom after loading messages
       setTimeout(() => scrollToBottom(), 300);
-=======
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
     } catch (error) {
       console.error('Failed to load messages:', error);
     }
@@ -196,12 +165,9 @@ export default function ChatPage() {
       createdAt: new Date().toISOString(),
     };
     setMessages(prev => [...prev, tempUserMessage]);
-<<<<<<< HEAD
-    
+
     // Scroll after adding user message
     setTimeout(() => scrollToBottom(), 100);
-=======
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 
     try {
       const res = await fetch('/api/chat', {
@@ -213,8 +179,7 @@ export default function ChatPage() {
         }),
       });
 
-<<<<<<< HEAD
-      if (!res.ok) {
+       if (!res.ok) {
         const errorData = await res.json().catch(() => ({ error: 'Failed to get response' }));
         throw new Error(errorData.error || `Server error: ${res.status}`);
       }
@@ -231,26 +196,17 @@ export default function ChatPage() {
       // Add user message back (will be saved by API)
       setMessages(prev => [...prev, tempUserMessage]);
 
-=======
-      const data = await res.json();
-
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-      // Add assistant response
+       // Add assistant response
       const assistantMessage: Message = {
         id: `msg-${Date.now()}`,
         sender: 'assistant',
-<<<<<<< HEAD
-        content: data.answer || 'Sorry, I could not generate a response. Please try again.',
-=======
-        content: data.answer,
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-        createdAt: new Date().toISOString(),
+         content: data.answer || 'Sorry, I could not generate a response. Please try again.',
+         createdAt: new Date().toISOString(),
       };
       setMessages(prev => [...prev, assistantMessage]);
 
       // Set sources if available
-<<<<<<< HEAD
-      if (data.sources && Array.isArray(data.sources)) {
+       if (data.sources && Array.isArray(data.sources)) {
         setSources(data.sources);
       } else {
         setSources([]);
@@ -259,13 +215,7 @@ export default function ChatPage() {
       // Ensure scroll happens after message is added
       setTimeout(() => scrollToBottom(), 300);
 
-=======
-      if (data.sources) {
-        setSources(data.sources);
-      }
-
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-      // Update active conversation
+       // Update active conversation
       if (data.conversationId) {
         const updatedConv: Conversation = {
           id: data.conversationId,
@@ -275,8 +225,7 @@ export default function ChatPage() {
         setActiveConversation(updatedConv);
         loadConversations();
       }
-<<<<<<< HEAD
-    } catch (error: any) {
+     } catch (error: any) {
       console.error('Failed to send message:', error);
       
       // Remove temp user message on error
@@ -291,11 +240,7 @@ export default function ChatPage() {
       };
       setMessages(prev => [...prev, errorMessage]);
       setTimeout(() => scrollToBottom(), 200);
-=======
-    } catch (error) {
-      console.error('Failed to send message:', error);
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-    } finally {
+     } finally {
       setIsLoading(false);
     }
   };
@@ -313,9 +258,6 @@ export default function ChatPage() {
     { icon: 'contacts', label: 'Contacts' },
   ];
 
-<<<<<<< HEAD
-=======
-  // Show loading while checking authorization
   if (!isAuthorized) {
     return (
       <div className="flex h-screen w-full items-center justify-center" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
@@ -327,7 +269,6 @@ export default function ChatPage() {
     );
   }
 
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   return (
     <div className="flex h-screen w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
       {/* Left Sidebar - Conversations - Glassmorphic */}
@@ -425,17 +366,13 @@ export default function ChatPage() {
 
         <main
           ref={messagesContainerRef}
-<<<<<<< HEAD
-          className="flex-1 overflow-y-auto p-4 pb-24 space-y-6 scroll-smooth"
+           className="flex-1 overflow-y-auto p-4 pb-24 space-y-6 scroll-smooth"
           style={{ 
             maxHeight: 'calc(100vh - 140px)',
             scrollBehavior: 'smooth',
             WebkitOverflowScrolling: 'touch'
           }}
-=======
-          className="flex-1 overflow-y-auto p-4 pb-24 space-y-6 scroll-smooth custom-scrollbar"
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-        >
+         >
           {showPolicyBanner && (
             <div className="flex items-center justify-between rounded-2xl glass-card p-4 animate-slide-up" style={{ background: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'blur(15px)', border: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <div className="flex flex-col gap-1">
@@ -511,31 +448,19 @@ export default function ChatPage() {
                 >
                   {message.sender === 'user' ? 'You' : 'Campus Assistant'}
                 </p>
-<<<<<<< HEAD
-                <div
+                 <div
                   className={`text-base font-normal leading-relaxed flex max-w-[360px] rounded-2xl px-5 py-4 shadow-soft animate-slide-up break-words ${
-=======
-                <p
-                  className={`text-base font-normal leading-normal flex max-w-[360px] rounded-2xl px-5 py-4 shadow-soft animate-slide-up ${
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-                    message.sender === 'user'
+                     message.sender === 'user'
                       ? 'chat-bubble-user text-white rounded-br-none'
                       : 'chat-bubble-assistant text-charcoal rounded-bl-none'
                   }`}
-<<<<<<< HEAD
-                  style={message.sender === 'user' ? { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 10px 40px rgba(102, 126, 234, 0.3)' } : { lineHeight: '1.7' }}
+                   style={message.sender === 'user' ? { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 10px 40px rgba(102, 126, 234, 0.3)' } : { lineHeight: '1.7' }}
                 >
                   <div className="w-full space-y-2.5">
                     {formatMessageContent(message.content)}
                   </div>
                 </div>
-=======
-                  style={message.sender === 'user' ? { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 10px 40px rgba(102, 126, 234, 0.3)' } : {}}
-                >
-                  {message.content}
-                </p>
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-              </div>
+               </div>
               {message.sender === 'user' && (
                 <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', boxShadow: '0 8px 30px rgba(79, 172, 254, 0.3)' }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
@@ -597,12 +522,8 @@ export default function ChatPage() {
             </div>
           )}
 
-<<<<<<< HEAD
-          <div ref={messagesEndRef} style={{ height: '1px' }} />
-=======
-          <div ref={messagesEndRef} />
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-        </main>
+           <div ref={messagesEndRef} style={{ height: '1px' }} />
+         </main>
 
         <footer className="absolute bottom-0 left-0 right-0 glass-card" style={{ background: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255, 255, 255, 0.18)' }}>
           <div className="flex items-center gap-3 p-4">

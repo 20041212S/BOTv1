@@ -106,8 +106,8 @@ campus-assistant/
 ├── lib/
 │   ├── prisma.ts           # Prisma client
 │   ├── auth.ts             # Authentication utilities
-│   ├── llmService.ts       # LLM service placeholder
-│   └── chatHelpers.ts      # Chat intent detection & DB queries
+│   ├── chatHelpers.ts      # Chat intent detection & DB queries
+│   └── groqLlmService.ts   # Groq LLM integration
 ├── prisma/
 │   ├── schema.prisma       # Database schema
 │   └── seed.ts             # Database seed script
@@ -144,12 +144,11 @@ The application uses the following main models:
 
 ## LLM Integration
 
-The `lib/llmService.ts` file contains the OpenAI integration:
-- Uses OpenAI API (GPT-4o-mini by default) to generate natural language responses
-- Takes intent, user message, and database data
-- Returns a natural language answer and sources array
-- Includes error handling with fallback responses
-- **Note**: Requires `OPENAI_API_KEY` environment variable
+The Groq integration lives in `lib/groqLlmService.ts`:
+- Uses Groq Llama 3.1 8B Instant to generate responses
+- Prioritizes knowledge-base content and admin-provided data
+- Includes tone, formatting, and greeting-handling rules
+- Requires `GROQ_API_KEY` in your `.env`
 
 ## Intent Detection
 
@@ -192,7 +191,7 @@ npm start
 
 - All admin routes are protected and require authentication
 - JWT tokens are stored in HttpOnly cookies for security
-- OpenAI API integration is configured - ensure `OPENAI_API_KEY` is set in `.env`
+- Groq API integration is configured - ensure `GROQ_API_KEY` is set in `.env`
 - Role-based access control is stubbed - implement as needed
 - Chart components in dashboard are placeholders - connect a charting library
 

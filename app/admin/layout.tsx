@@ -58,17 +58,13 @@ export default function AdminLayout({
 
   const navItems = [
     { href: '/admin', icon: 'dashboard', label: 'Dashboard' },
-<<<<<<< HEAD
-    { href: '/admin/staff', icon: 'people', label: 'Staff' },
+     { href: '/admin/staff', icon: 'people', label: 'Staff' },
     { href: '/admin/fees', icon: 'receipt_long', label: 'Fees' },
     { href: '/admin/rooms', icon: 'meeting_room', label: 'Rooms' },
     { href: '/admin/knowledge', icon: 'auto_stories', label: 'Knowledge Base' },
     { href: '/admin/client-users', icon: 'person', label: 'Client Users' },
     { href: '/admin/logs', icon: 'description', label: 'Audit Logs' },
-=======
-    { href: '/admin/logs', icon: 'description', label: 'Chatbot Logs' },
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
-    { href: '/admin/settings', icon: 'settings', label: 'Settings' },
+     { href: '/admin/settings', icon: 'settings', label: 'Settings' },
   ];
 
   return (

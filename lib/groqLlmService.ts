@@ -19,7 +19,6 @@ export async function callGroqLLM(
 ): Promise<{ answer: string; sources?: any[] }> {
   const { intent, userMessage, data } = ctx;
 
-<<<<<<< HEAD
   // Prioritize knowledge base content
   const hasKnowledge = data?.knowledge && Array.isArray(data.knowledge) && data.knowledge.length > 0;
   const hasStaff = data?.staff && Array.isArray(data.staff) && data.staff.length > 0;
@@ -187,26 +186,6 @@ INSTRUCTIONS:
 - Don't be overly formal or robotic
 - Only provide the information that's relevant to their question
 - Keep it clear and easy to understand
-=======
-  const systemPrompt = `
-You are the official campus assistant chatbot for a college.
-You must ALWAYS use the structured DATA provided below as the single source of truth.
-Rules:
-- If DATA includes staff / fees / rooms / knowledge, do not invent new values.
-- If the data does not contain the requested info, say you are not sure and suggest contacting the college office.
-- Keep answers clear and concise.
-Current intent: ${intent}
-  `.trim();
-
-  const dataBlock = data ? JSON.stringify(data, null, 2) : 'No structured data provided.';
-
-  const userPrompt = `
-User question:
-"${userMessage}"
-
-DATA (from database / knowledge base):
-${dataBlock}
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   `.trim();
 
   if (!groq) {

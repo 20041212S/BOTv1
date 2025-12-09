@@ -2,20 +2,11 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-<<<<<<< HEAD
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-=======
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
 }
 
 model User {
@@ -53,11 +44,7 @@ model Fee {
   academicYear   String   @map("academic_year")
   yearOrSemester String   @map("year_or_semester") // e.g., "Year 1", "Semester 1"
   category       String   // e.g., "Tuition", "Library", "Lab"
-<<<<<<< HEAD
   amount         Decimal
-=======
-  amount         Decimal  @db.Decimal(10, 2)
->>>>>>> a1d329e7bebded139580e38b50022b7bf31cc74a
   currency       String   @default("INR")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")

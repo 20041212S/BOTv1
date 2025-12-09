@@ -10,13 +10,12 @@
 2. **Set up Environment Variables**
    Create a `.env` file in the root directory:
    ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/campus_assistant"
-   JWT_SECRET="your-secret-key-change-in-production"
-   OPENAI_API_KEY="your-openai-api-key"
-   OPENAI_MODEL="gpt-4o-mini"  # Optional, defaults to gpt-4o-mini
+DATABASE_URL="postgresql://user:password@localhost:5432/campus_assistant"
+JWT_SECRET="your-secret-key-change-in-production"
+GROQ_API_KEY="your-groq-api-key"
    ```
-   
-   **Important**: Get your OpenAI API key from https://platform.openai.com/api-keys
+  
+**Important**: Get your Groq API key from https://console.groq.com/
 
 3. **Set up Database**
    ```bash
@@ -92,7 +91,7 @@ DATABASE_URL="postgresql://postgres:yourpassword@localhost:5432/campus_assistant
 
 ## Next Steps
 
-1. **Get OpenAI API Key**: Sign up at https://platform.openai.com and add your API key to `.env`
+1. **Get Groq API Key**: Sign up at https://console.groq.com/ and add your API key to `.env`
 2. **Add Charts**: Connect a charting library (e.g., Recharts, Chart.js) to the dashboard
 3. **Implement 2FA**: Add actual two-factor authentication
 4. **Role Permissions**: Implement role-based access control
