@@ -394,9 +394,9 @@ export default function ChatPage() {
 
           {messages.length === 0 && (
             <div className="flex items-end gap-3 animate-fade-in">
-              <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden animate-float" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 8px 30px rgba(102, 126, 234, 0.4)' }}>
+              <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden animate-float flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 8px 30px rgba(102, 126, 234, 0.4)' }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                <span className="material-symbols-outlined text-white relative z-10 m-auto block text-2xl">support_agent</span>
+                <span className="material-symbols-outlined text-white relative z-10 text-2xl">support_agent</span>
               </div>
               <div className="flex flex-1 flex-col gap-1.5 items-start">
                 <p className="text-charcoal/70 text-[13px] font-medium leading-normal max-w-[360px]">
@@ -433,9 +433,9 @@ export default function ChatPage() {
               className={`flex items-end gap-3 ${message.sender === 'user' ? 'justify-end' : ''}`}
             >
               {message.sender === 'assistant' && (
-                <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 8px 30px rgba(102, 126, 234, 0.3)' }}>
+                <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', boxShadow: '0 8px 30px rgba(102, 126, 234, 0.3)' }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="material-symbols-outlined text-white relative z-10 m-auto block text-xl">support_agent</span>
+                  <span className="material-symbols-outlined text-white relative z-10 text-xl">support_agent</span>
                 </div>
               )}
               <div
@@ -462,9 +462,9 @@ export default function ChatPage() {
                 </div>
                </div>
               {message.sender === 'user' && (
-                <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', boxShadow: '0 8px 30px rgba(79, 172, 254, 0.3)' }}>
+                <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 shrink-0 relative overflow-hidden flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', boxShadow: '0 8px 30px rgba(79, 172, 254, 0.3)' }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="material-symbols-outlined text-white relative z-10 m-auto block text-xl">person</span>
+                  <span className="material-symbols-outlined text-white relative z-10 text-xl">person</span>
                 </div>
               )}
             </div>
